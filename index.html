@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-color: #111111;
+            color: #ffffff;
+            background-image: url('https://th.bing.com/th/id/R.20880d2c50d47c03eb0fb12a3c61c333?rik=1bjstc2ULQUadA&pid=ImgRaw&r=0');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            position: relative;
+            box-sizing: border-box;
+            transition: background-image 0.3s ease; /* Adiciona uma transição suave para o fundo da página */
+        }
+
+        body.overlay {
+            background-image: url('https://th.bing.com/th/id/OIP.j0RbnZMuKldbbmy5_kXdSgHaEc?rs=1&pid=ImgDetMain');
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 0px; /* Adicione uma margem superior negativa */
+    background-color: transparent; /* Cor de fundo inicial transparente */
+    transition: background-color 0.3s ease; /* Adiciona uma transição suave */
+}
+
+
+        .row.overlay {
+            background-color: rgba(0, 0, 0, 0.7); /* Cor de fundo cinza com transparência */
+            backdrop-filter: blur(10px); /* Ajuste o valor do desfoque conforme necessário */
+        }
+
+        .product {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px;
+        }
+
+        .product p {
+            color: #ffffff;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .product-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: flex-start;
+            align-items: flex-start;
+            text-align: left;
+            transition: background-color 0.3s ease; /* Add transition for background color */
+        }
+
+        .product-overlay img {
+            max-width: 100%; /* Largura máxima igual a 100% do contêiner */
+            max-height: 80vh;
+        }
+
+        .product-overlay p {
+            color: #ffffff;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 1.2em;
+            text-decoration: underline;
+        }
+
+        .price-button {
+    margin-top: 36px; /* Ajuste a quantidade de margem superior conforme necessário */
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.2em;
+    text-decoration: underline;
+}
+
+.how-to-receive {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+        .title {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px;
+        }
+        .fivem-store {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    padding: 15px; /* Ajuste o padding conforme necessário */
+    border-radius: 10px; /* Ajusta as bordas arredondadas */
+    z-index: 999; /* Ajusta a sobreposição para garantir que esteja acima dos outros elementos */
+    background-color: rgba(0, 0, 0, 0.7); /* Adiciona um fundo escuro para destacar */
+    font-size: 1.5em; /* Ajuste o tamanho do texto conforme necessário */
+}
+
+.fivem-store img {
+    max-height: 50px; /* Ajusta a altura máxima da imagem */
+    margin-right: 10px;
+}
+
+.fivem-store p {
+    color: #ffffff;
+    margin: 0;
+    white-space: nowrap; /* Impede que o texto seja quebrado em várias linhas */
+    font-weight: bold; /* Adiciona negrito ao texto para maior destaque */
+    display: inline-block; /* Força o bloco a ser exibido como um bloco em linha para ajustar o tamanho do texto */
+}
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <div class="row overlay" id="products-container-top"></div>
+<div class="row overlay" id="products-container-bottom"></div>
+
+
+    <div class="row overlay" id="products-container"></div>
+
+     <!-- Botão "Preços" -->
+     <div class="price-button" onclick="showPrices()">Preços -></div>
+    <div class="back-button" onclick="goBack()">← Voltar</div>
+    <div class="title" id="products-title">Produtos</div>
+
+    <!-- Adição do elemento "Fivem Store" -->
+
+    <!-- Sobreposição (overlay) -->
+<div class="product-overlay" onclick="hideOverlay()">
+    <img src="" alt="Produto em destaque">
+    <p>Descrição do produto em destaque</p>
+</div>
+
+<div class="how-to-receive" onclick="showHowToReceiveImage()">
+    -> Como Receber Seu Produto?
+</div>
+
+
+
+<div class="row overlay" id="products-container-top"></div>
+    <div class="row overlay" id="products-container-bottom"></div>
+
+    <div class="fivem-store">
+        <img src="https://i2.wp.com/www.multarte.com.br/wp-content/uploads/2018/11/coroa-png-fundo-transparente4.png?ssl=1" alt="Coroa" /> Fivem Store
+    </div>
+
+    <div class="row" id="products-container">
+        <div class="product" onclick="showOverlay('Avelino Menu (Lifetime) PUXANDO ARMAS EM QUALQUER CIDADE, MOD MENU LIFETIME AVELINO MENU, COM VARIAS OPÇÔES TROLS E PRA QUEM GOSTA DE RP SERIO COMO DESTRANCAR OU SPAWNAR CARRO(PRECISA DE RED)', 'https://cdn.discordapp.com/attachments/1181040007360811078/1181040079569948723/Screenshot_2023-12-03-12-15-13-891-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=16cf8a95f5a9c44d7780a571fd1dd7fe2fcf4ab9bbc817d1f917d541ba634e55&')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180351829549273118/Screenshot_2023-12-02-00-36-32-484-edit_com.discord.jpg?ex=657d1b4e&is=656aa64e&hm=bcef39eeb5009d3f320d2418a2b59dd7ade5bae2c21b934e34e3ceca9b649b4a&" alt="Produto 1">
+            <p>Avelino Menu
+                (lifetime)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Red Spoofer (lifetime) MELHOR REMOVEDOR DE BANS DO MERCADO - Sem danificar o seu pc - Sem excluir arquivos - Apenas CLIKAR E PRONTO, REMOVEU GLOBAL OU HDWI PRA SEMPRE - Sem bugs - Não deixa o pc bugado - Simplesmente o melhor suporte', 'https://cdn.discordapp.com/attachments/1181040007360811078/1181040080371060856/Screenshot_2023-12-03-12-13-06-118-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=55083792f467c6078f5a07627d41be0379cfa81288b5ed45c7d148248c5d28a3&')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180352660801585182/OIP_3.jpg?ex=657d1c14&is=656aa714&hm=cc6f406b5bf867b16880b9b506c22831b1580c0d00cc0aef6d4a7f03703b3a32&" alt="Produto 2">
+            <p>Red Spoofer
+                (lifetime)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Red Executor (lifetime) Executor red engine, com ele você consegue utilizar suas trigger pra puxar armas, veiculos, alem de ter esp, aimbot, Isso tambem e obrigatorio pra conseguir utilizar os cheats que nao possui executor proprio', 'https://cdn.discordapp.com/attachments/1181040007360811078/1181040080371060856/Screenshot_2023-12-03-12-13-06-118-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=55083792f467c6078f5a07627d41be0379cfa81288b5ed45c7d148248c5d28a3&')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180352683014635640/OIP_2.jpg?ex=657d1c19&is=656aa719&hm=5426b1a00acb00abf07c49a879770924330e4e766d9bac9ccbbdb29d1d02718a&" alt="Produto 3">
+            <p>Red Executor
+                (lifetime)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Shark Menu (lifetime) Executor Incluso - Sem Spoofer de 1 Click Incluso - Puxando arma em Likizão & Mqcu - Puxando veículo em Likizão & Mqcu - Removendo o Modo Novato de todas as cidades - Funções troll para adicionar diversão - Menu otimizado para uma jogabilidade sem lag - Nova interface do menu para uma experiência visual moderna(NAO PRECISA DE RED ENGINE)', 'https://cdn.discordapp.com/attachments/1181040007360811078/1181040080371060856/Screenshot_2023-12-03-12-13-06-118-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=55083792f467c6078f5a07627d41be0379cfa81288b5ed45c7d148248c5d28a3&')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180514556737503263/image.png?ex=657db2db&is=656b3ddb&hm=34ff3fdd3cc5d3ccc250e418a0874f3ec7bf2d881c207c77e6e1d6746a17b66e&" alt="Produto 4">
+            <p>Shark Menu
+                (lifetime)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Felipe Menu (lifetime) FELIPE MENU Melhor menu para FiveM 🔥 AIMBOT, trigger BOT Esp, spawn de armas/dinheiro Mando triggers para spawn de dinheiro ao comprar(PRECISA DE RED)', 'https://media.discordapp.net/attachments/1181040007360811078/1181040080090046565/Screenshot_2023-12-03-12-13-36-104-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=67719299dac4fe223279b5d4408a5670b76930bee9f97a1b755baf4cf9b07545&=&format=webp&width=521&height=625')">
+            <img src="https://th.bing.com/th/id/OIP.gqQqZNFqRxxRc9ruNQayxwAAAA?rs=1&pid=ImgDetMain" alt="Produto 5">
+            <p>Felipe Menu
+                (lifetime)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Jetzin Bypass (265 dias) Melhor bypass do mercado, Com este bypass você consegue esconder seu cheat fazendo com que nenhum adm te pegue na telagem, Tambem limpa todas as logs do seu pc pra ficar limpo', 'https://cdn.discordapp.com/attachments/1181040007360811078/1181040080660480040/Screenshot_2023-12-03-12-12-32-770-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=788fdd6f6d3040e27fd1582db09e0eda93015dc441d58dcb55a532af06dce947&')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180355920971178085/Screenshot_2023-12-02-00-52-50-856-edit_com.android.chrome.jpg?ex=657d1f1d&is=656aaa1d&hm=c0ecee831792ce6f7c0689a87497b1c652095e50fba610355459a7f17b8f6271&" alt="Produto 6">
+            <p>Jetzin Bypass
+                (265 dias)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Tiger Menu (lifetime) Puxar armas/veículos em grande parte dos servidores! Mqcu/Likizao - Menu com interface otimizada e sem quedas de FPS - Tira modo novato (Fusion, Lotus) - Funções troll atualizadas. - Triggers de dinheiro e outros. - Aimboot, Silent e RageBot. - Puxar Dinheiro - Modo Espectador - Freecam - Destravar/Trancar Veículos - Trazer veiculo até você - Várias skins(NAO PRECISA DE RED ENGINE)', 'https://cdn.discordapp.com/attachments/1181040007360811078/1181040080941490186/Screenshot_2023-12-03-12-11-52-117-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=40b0199b1f3a1eaaad5ae621f086e10bb5c13f4896416a4d2f61dbb5e6a50f12&')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180514300176105623/image.png?ex=657db29e&is=656b3d9e&hm=a080ece40e17e61d2200f755ac5f84497a967c15ee80432d0ae82d303231f4ee&" alt="Produto 7">
+            <p>Tiger Menu
+                (lifetime)
+            </p>
+        </div>
+        <div class="product" onclick="showOverlay('Mine Full acesso (Java e Bedrock) Java Edition/Bedrock. - Acesso a todos servidores originais - Pode alterar E-mail/Senha e todas perguntas de Segurança e Nick. - Acesso vitalício [ Permanente ] - Sem banimentos. - Chance de vir Capa Optfine / Capa Migração e Vips em servidores', 'https://media.discordapp.net/attachments/1181040007360811078/1181040079834202183/Screenshot_2023-12-03-12-14-35-539-edit_com.picpay.jpg?ex=657f9c49&is=656d2749&hm=ff8568986777afae9d499c96ae588c96019ead09cda2b1578c7a96f6f83f958b&=&format=webp&width=524&height=624')">
+            <img src="https://cdn.discordapp.com/attachments/1170200345549475921/1180357166452969532/Screenshot_2023-12-02-00-57-40-910-edit_com.kiwibrowser.browser.jpg?ex=657d2046&is=656aab46&hm=fbf771d0e6a8acddff9a73fe8cd2731bfb021b430a462031bf260eb9154c7584&" alt="Produto 8">
+            <p>Mine Full acesso
+                (Bedrock E Java)
+            </p>
+        </div>
+    </div>
+
+
+    <script>
+        function goBack() {
+            window.history.back();
+
+        }
+
+        function hideOverlay() {
+    document.querySelector('.product-overlay').style.display = 'none';
+}
+
+
+           function showPrices() {
+            window.location.href = "https://fivemstores.github.io/FiveMStore/";
+        }
+
+        function showHowToReceiveImage() {
+    const overlay = document.querySelector('.product-overlay');
+    overlay.style.display = 'flex';
+    overlay.querySelector('img').src = 'https://cdn.discordapp.com/attachments/1160867247569502298/1181436219482198016/image.png?ex=65810d38&is=656e9838&hm=c2c4f9b5eb2b7ff31f3cb67ceda0591592c330cf1e9aa629a05238419101efd7&'; // Substitua 'URL_DA_IMAGEM_AQUI' pela URL da sua imagem
+    const productDescription = overlay.querySelector('p');
+    productDescription.textContent = 'Como Receber Seu Produto?';
+}
+
+
+        // ...
+
+        function showOverlay(name, imageUrl, description) {
+    // Escolhe a linha superior ou inferior com base no número de produtos
+    const productsContainerTop = document.getElementById('products-container-top');
+    const productsContainerBottom = document.getElementById('products-container-bottom');
+    const overlay = document.querySelector('.product-overlay');
+    document.body.classList.add('overlay-ativa');
+    const productContainer = productsContainerTop.children.length < 4 ? productsContainerTop : productsContainerBottom;
+
+    // Restante do código permanece inalterado
+    overlay.style.display = 'flex';
+    overlay.querySelector('img').src = imageUrl;
+    const productDescription = overlay.querySelector('p');
+    productDescription.innerHTML = `<strong>${name}</strong>`;
+    if (description) {
+        productDescription.innerHTML += `<br>${description}`;
+    }
+}
+
+    </script>
+</body>
+</html>
